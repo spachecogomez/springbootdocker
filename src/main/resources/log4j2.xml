@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+        <File name="fileAp" fileName="/Users/sebastianpacheco/IdeaProjects/springbootdocker/server.log.json">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+            <!--&lt;!&ndash;Syslog name="bsd" host="localhost" port="5000" protocol="TCP"/&ndash;&gt;
+        <Socket name="socket" host="192.168.0.11" port="5000">
+            <SerializedLayout />
+        </Socket>
+
+
+
+            <Syslog name="RFC5424" format="RFC5424" host="192.168.0.11" port="5000"
+                    protocol="TCP" appName="TestSpringBootDocker" includeMDC="true"
+                    facility="LOCAL0" enterpriseNumber="18060" newLine="true"
+                    messageId="Audit" id="App" mdcId="mdc"/>-->
+
+
+    </Appenders>
+    <Loggers>
+        <Root level="error">
+            <AppenderRef ref="Console"/>
+            <!--AppenderRef ref="RFC5424"/-->
+        </Root>
+        <Logger level="all" name="com.sample" additivity="false">
+            <AppenderRef ref="Console"/>
+            <!--AppenderRef ref="fileAp"/-->
+            <!--AppenderRef ref="RFC5424"/-->
+        </Logger>
+    </Loggers>
+</Configuration>
