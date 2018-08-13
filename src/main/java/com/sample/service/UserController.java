@@ -5,14 +5,14 @@ package com.sample.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sample.entity.User;
 import com.sample.repository.UserRepository;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.xml.ws.Response;
+import java.util.List;
 
 /**
  * Created by sebastianpacheco on 24/01/17.
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/users")
 public class UserController {
 
-    private Logger log = LogManager.getLogger(UserController.class);
+    private Logger log = LoggerFactory.getLogger(UserController.class);
 
     ObjectMapper objectMapper = new ObjectMapper();
 
@@ -38,6 +38,11 @@ public class UserController {
             log.error("Se produjo un error",e);
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    @RequestMapping(method = RequestMethod.GET, produces = "application/json", consumes = "application/json", path = "/{name}")
+    public ResponseEntity<List<User>> getUserByName(@PathVariable String name){
+        return ResponseEntity.ok(userRepository.findUserByNameLike("%".concat(name).concat("%")));
     }
 
 
